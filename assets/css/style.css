@@ -1,0 +1,14 @@
+.header{
+    width: 100vw;
+    height: 6rem;
+    margin: 0;
+    background-image: linear-gradient(to right, #3463BC, #20094B);
+}
+
+h1{
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    justify-content: center;
+    line-height: 6rem;
+}

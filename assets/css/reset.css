@@ -1,0 +1,56 @@
+/* Reset CSS file */
+/* A lot of these element resets come from Kevin Powell tutorial */
+
+/* Box Sizing Reset*/
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+/* HTML Reset */
+html{
+    height: 100%;
+}
+
+/* Margin Reset */
+body, h1, h2, h3, p, figure, picture{
+    margin: 0;
+    font-size: 100%;
+}
+
+/* Body Reset */
+body{
+    line-height: 1.5;
+    min-height: 100vh;
+    font-family: sans-serif;
+}
+
+/* Image Reset */
+img, picture{
+    max-width: 100%;
+    display: block;
+}
+
+/* Form Element Reset */
+input, select, option, optgroup, textarea, button, pre, code{
+    font: inherit;
+    font-size: 100%;
+}
+
+/* List Reset */
+ol, ul{
+    list-style: none;
+}
+
+/* Animation Removal */
+@media (prefers-reduced-motion: reduce) {  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
