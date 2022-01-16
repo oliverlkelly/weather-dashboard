@@ -17,7 +17,7 @@ h1{
 }
 .searchContainer{
     width: 25vw;
-    margin: 0 0.5rem 0 0.5rem;
+    margin: 0 1rem 0 1rem;
 }
 .searchBoxContainer{
     display: flex;
@@ -41,4 +41,13 @@ h1{
     border: skyblue;
     color: white;
     margin-top: 1rem;
+}
+.results{
+    margin: 1rem 0.5rem 0 1rem;
+}
+.weatherToday{
+    height: 30vh;
+    width: 72vw;
+    border: 2.5px solid grey;
+    border-radius: 0.5rem;
 }

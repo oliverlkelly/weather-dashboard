@@ -1,5 +1,7 @@
 var searchBox = document.querySelector("#searchBox");
 var searchBtn = document.querySelector("#searchBtn");
+var locationDate = document.querySelector("#locationDate");
+
 var city;
 var cityHistory;
 var appID = "6bf490b8fe0c71916ca8e76e4a98d42c";
@@ -38,6 +40,8 @@ function callCityAPI(){
         })
         .then(function(data){
             cityAPICall = data;
+            callOneCall(cityAPICall.coord.lon, cityAPICall.coord.lat);
+            console.log(cityAPICall);
 
         })
         .catch(function(error){
@@ -67,6 +71,9 @@ function callOneCall(lon, lat){
         })
         .then(function(data){
             oneCallAPICall = data;
+            var apiCity = oneCallAPICall.timezone.split("/").pop();
+            locationDate.innerHTML = apiCity;
+            console.log(oneCallAPICall);
         })
         .catch(function(error){
             console.log(error);
@@ -77,9 +84,6 @@ function clickButton(){
     console.log("clicked");
     setCity();
     callCityAPI();
-    if(cityAPICall !== undefined){
-        callOneCall(cityAPICall.coord.lon, cityAPICall.coord.lat);
-    }
 }
 
 getStorage();
