@@ -1,12 +1,22 @@
 var searchBox = document.querySelector("#searchBox");
 var searchBtn = document.querySelector("#searchBtn");
 var city;
-var cityHistory = [];
+var cityHistory;
 var appID = "6bf490b8fe0c71916ca8e76e4a98d42c";
 var apiURLCity = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+appID;
 var apiURLOneCall;
 var cityAPICall;
 var oneCallAPICall;
+
+function getStorage(){
+    if(localStorage.getItem("cityHistory") === null){
+        cityHistory = [];
+
+    }
+    else{
+        cityHistory = JSON.parse(localStorage.getItem("cityHistory"));
+    }
+}
 
 function setCity(){
     city = searchBox.value;
@@ -35,6 +45,13 @@ function callCityAPI(){
         })
 }
 function callOneCall(lon, lat){
+    if(!(cityHistory.includes(city))){
+        cityHistory.push(city);
+        localStorage.setItem("cityHistory", JSON.stringify(cityHistory));
+    }
+    else{
+        localStorage.setItem("cityHistory", JSON.stringify(cityHistory));
+    }
     apiURLOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=`+appID;
     fetch(apiURLOneCall, {
         method: 'GET',
@@ -56,10 +73,16 @@ function callOneCall(lon, lat){
         })
 }
 
-searchBtn.addEventListener("click", function(){
+function clickButton(){
+    console.log("clicked");
     setCity();
     callCityAPI();
     if(cityAPICall !== undefined){
         callOneCall(cityAPICall.coord.lon, cityAPICall.coord.lat);
     }
+}
+
+getStorage();
+searchBtn.addEventListener("click", function(){
+    clickButton();
 });
