@@ -1,6 +1,10 @@
 var searchBox = document.querySelector("#searchBox");
 var searchBtn = document.querySelector("#searchBtn");
 var locationDate = document.querySelector("#locationDate");
+var tTemp = document.querySelector("#tTemp");
+var tWind = document.querySelector("#tWind");
+var tHumid = document.querySelector("#tHumid");
+var tuv = document.querySelector("#tuv");
 
 var city;
 var cityHistory;
@@ -71,13 +75,21 @@ function callOneCall(lon, lat){
         })
         .then(function(data){
             oneCallAPICall = data;
-            var apiCity = oneCallAPICall.timezone.split("/").pop();
-            locationDate.innerHTML = apiCity;
+            populateData();
             console.log(oneCallAPICall);
         })
         .catch(function(error){
             console.log(error);
         })
+}
+
+function populateData(){
+    var apiCity = oneCallAPICall.timezone.split("/").pop();
+    locationDate.innerHTML = apiCity;
+    tTemp.innerHTML = oneCallAPICall.current.temp;
+    tWind.innerHTML = oneCallAPICall.current.wind_speed;
+    tHumid.innerHTML = oneCallAPICall.current.humidity;
+    tuv.innerHTML = oneCallAPICall.current.uvi;
 }
 
 function clickButton(){
