@@ -12,6 +12,33 @@ h1{
     justify-content: center;
     line-height: 6rem;
 }
-.searchSection{
-
+.main{
+    display: flex;
+}
+.searchContainer{
+    width: 25vw;
+    margin: 0 0.5rem 0 0.5rem;
+}
+.searchBoxContainer{
+    display: flex;
+    flex-direction: column;
+}
+.searchTitle{
+    font-size: 2.5rem;
+}
+.searchBox{
+    width: 100%;
+    height: 4rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+.searchBtn{
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    background-color: #5098E6;
+    border: none;
+    color: white;
+    margin-top: 1rem;
 }
