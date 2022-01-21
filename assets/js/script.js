@@ -1,5 +1,6 @@
 var searchBox = document.querySelector("#searchBox");
 var searchBtn = document.querySelector("#searchBtn");
+var searchHistory = document.querySelector(".searchHistory");
 var locationDate = document.querySelector("#locationDate");
 var tTemp = document.querySelector("#tTemp");
 var tWind = document.querySelector("#tWind");
@@ -15,6 +16,7 @@ var apiURLOneCall;
 var cityAPICall;
 var oneCallAPICall;
 var fiveDay;
+var historyButtons
 
 function getStorage(){
     if(localStorage.getItem("cityHistory") === null){
@@ -24,10 +26,26 @@ function getStorage(){
     else{
         cityHistory = JSON.parse(localStorage.getItem("cityHistory"));
     }
+    populateHistory();
 }
-
-function setCity(){
-    city = searchBox.value.toLowerCase();
+function populateHistory(){
+    searchHistory.innerHTML = "";
+    cityHistory.forEach(element => {
+        $(`<button class="historyBtn">${element}</button>`).appendTo(searchHistory);
+    });
+    historyButtons();
+}
+function historyButtons() {
+    var historyButtons = Array.from(document.getElementsByClassName("historyBtn"));
+    historyButtons.forEach(element => {
+        element.addEventListener("click", function(){
+            var histCity = $(this).text();
+            clickButton(histCity);
+        })
+    });
+}
+function setCity(cityVal){
+    city = cityVal;
     apiURLCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appID}`;
 }
 
@@ -108,12 +126,14 @@ function populateData(){
 
 }
 
-function clickButton(){
-    setCity();
+function clickButton(val){
+    setCity(val);
     callCityAPI();
+    populateHistory();
 }
 
 getStorage();
 searchBtn.addEventListener("click", function(){
-    clickButton();
+    var searchItem = searchBox.value.toLowerCase();
+    clickButton(searchItem);
 });
