@@ -51,3 +51,7 @@ h1{
     border: 2.5px solid grey;
     border-radius: 0.5rem;
 }
+.fiveDays{
+    display: flex;
+    flex-direction: row;
+}

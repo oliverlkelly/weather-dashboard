@@ -5,6 +5,7 @@ var tTemp = document.querySelector("#tTemp");
 var tWind = document.querySelector("#tWind");
 var tHumid = document.querySelector("#tHumid");
 var tuv = document.querySelector("#tuv");
+var fiveDays = document.querySelector(".fiveDays");
 
 var city;
 var cityHistory;
@@ -13,6 +14,7 @@ var apiURLCity = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&app
 var apiURLOneCall;
 var cityAPICall;
 var oneCallAPICall;
+var fiveDay;
 
 function getStorage(){
     if(localStorage.getItem("cityHistory") === null){
@@ -25,8 +27,8 @@ function getStorage(){
 }
 
 function setCity(){
-    city = searchBox.value;
-    apiURLCity = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+appID;
+    city = searchBox.value.toLowerCase();
+    apiURLCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appID}`;
 }
 
 function callCityAPI(){
@@ -76,7 +78,6 @@ function callOneCall(lon, lat){
         .then(function(data){
             oneCallAPICall = data;
             populateData();
-            console.log(oneCallAPICall);
         })
         .catch(function(error){
             console.log(error);
@@ -86,13 +87,25 @@ function callOneCall(lon, lat){
 function populateData(){
     var apiCity = oneCallAPICall.timezone.split("/").pop();
     var date = new Date(oneCallAPICall.current.dt * 1000);
-    locationDate.innerHTML = `${apiCity} ${date}`;
+    var 
+    fiveDay = oneCallAPICall.daily;
+    locationDate.innerHTML = `${apiCity} (${moment(date).format("M/D/YYYY")})`;
     tTemp.innerHTML = `Temp: ${oneCallAPICall.current.temp}°F`;
     tWind.innerHTML = `Wind: ${oneCallAPICall.current.wind_speed} MPH`;
     tHumid.innerHTML = `Humidity: ${oneCallAPICall.current.humidity}%`;
     tuv.innerHTML = `UV Index: `;
     $(`<div class="uvIndex">${oneCallAPICall.current.uvi}</div>`).appendTo(tuv);
-    
+    for(i = 1; i<6; i++){
+        var dayDate = new Date(fiveDay[i].dt * 1000);
+        $(`<div class="dayCard">
+        <h4>(${moment(dayDate).format("M/D/YYYY")})</h4>
+        <img src="https://openweathermap.org/img/wn/${fiveDay[i].weather[0].icon}.png">
+        <p>Temp: ${fiveDay[i].temp.day}°F</p>
+        <p>Wind: ${fiveDay[i].wind_speed} MPH</p>
+        <p>Humidity: ${fiveDay[i].humidity}%</p>
+        </div>`).appendTo(fiveDays);
+    }
+
 }
 
 function clickButton(){
