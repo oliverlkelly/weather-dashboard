@@ -47,6 +47,7 @@ function historyButtons() {
 function setCity(cityVal){
     city = cityVal;
     apiURLCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appID}`;
+    populateHistory();
 }
 
 function callCityAPI(){
@@ -112,11 +113,19 @@ function populateData(){
     tWind.innerHTML = `Wind: ${oneCallAPICall.current.wind_speed} MPH`;
     tHumid.innerHTML = `Humidity: ${oneCallAPICall.current.humidity}%`;
     tuv.innerHTML = `UV Index: `;
-    $(`<div class="uvIndex">${oneCallAPICall.current.uvi}</div>`).appendTo(tuv);
+    if(oneCallAPICall.current.uvi >= 3 && oneCallAPICall.current.uvi <= 7){
+        $(`<div class="uvIndex medium">${oneCallAPICall.current.uvi}</div>`).appendTo(tuv);
+    }
+    else if(oneCallAPICall.current.uvi > 7){
+        $(`<div class="uvIndex high">${oneCallAPICall.current.uvi}</div>`).appendTo(tuv);
+    }
+    else{
+        $(`<div class="uvIndex low">${oneCallAPICall.current.uvi}</div>`).appendTo(tuv);
+    }
     for(i = 1; i<6; i++){
         var dayDate = new Date(fiveDay[i].dt * 1000);
         $(`<div class="dayCard">
-        <h4>(${moment(dayDate).format("M/D/YYYY")})</h4>
+        <h4>${moment(dayDate).format("M/D/YYYY")}</h4>
         <img src="https://openweathermap.org/img/wn/${fiveDay[i].weather[0].icon}.png">
         <p>Temp: ${fiveDay[i].temp.day}°F</p>
         <p>Wind: ${fiveDay[i].wind_speed} MPH</p>
@@ -129,7 +138,6 @@ function populateData(){
 function clickButton(val){
     setCity(val);
     callCityAPI();
-    populateHistory();
 }
 
 getStorage();
