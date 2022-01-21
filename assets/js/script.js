@@ -85,15 +85,17 @@ function callOneCall(lon, lat){
 
 function populateData(){
     var apiCity = oneCallAPICall.timezone.split("/").pop();
-    locationDate.innerHTML = apiCity;
-    tTemp.innerHTML = oneCallAPICall.current.temp;
-    tWind.innerHTML = oneCallAPICall.current.wind_speed;
-    tHumid.innerHTML = oneCallAPICall.current.humidity;
-    tuv.innerHTML = oneCallAPICall.current.uvi;
+    var date = new Date(oneCallAPICall.current.dt * 1000);
+    locationDate.innerHTML = `${apiCity} ${date}`;
+    tTemp.innerHTML = `Temp: ${oneCallAPICall.current.temp}°F`;
+    tWind.innerHTML = `Wind: ${oneCallAPICall.current.wind_speed} MPH`;
+    tHumid.innerHTML = `Humidity: ${oneCallAPICall.current.humidity}%`;
+    tuv.innerHTML = `UV Index: `;
+    $(`<div class="uvIndex">${oneCallAPICall.current.uvi}</div>`).appendTo(tuv);
+    
 }
 
 function clickButton(){
-    console.log("clicked");
     setCity();
     callCityAPI();
 }
