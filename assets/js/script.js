@@ -85,9 +85,9 @@ function callOneCall(lon, lat){
 }
 
 function populateData(){
+    fiveDays.innerHTML = "";
     var apiCity = oneCallAPICall.timezone.split("/").pop();
     var date = new Date(oneCallAPICall.current.dt * 1000);
-    var 
     fiveDay = oneCallAPICall.daily;
     locationDate.innerHTML = `${apiCity} (${moment(date).format("M/D/YYYY")})`;
     tTemp.innerHTML = `Temp: ${oneCallAPICall.current.temp}°F`;

@@ -54,4 +54,12 @@ h1{
 .fiveDays{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+.dayCard{
+    background-color: #2D3E50;
+    color: white;
+    text-align: left;
+    width: 19%;
+    padding: 0.5rem;
 }
